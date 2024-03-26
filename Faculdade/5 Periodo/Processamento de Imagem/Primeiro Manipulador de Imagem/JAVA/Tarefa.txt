@@ -1,0 +1,5 @@
+Objetivo:
+	Ler uma imagem e mannipular os pixels 
+
+Passos:
+	A ser descoberto
