@@ -1,5 +1,8 @@
 Objetivo:
-	Ler uma imagem e mannipular os pixels 
+	Ler uma imagem e mannipular os pixels
 
 Passos:
 	A ser descoberto
+
+Concluido:
+    -Funcao de retirar a cor feita
