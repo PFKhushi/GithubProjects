@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1710215179 source:c:\users\mafia\desktop\estrutura_de_dados_usando_c\graph paraiba state\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
