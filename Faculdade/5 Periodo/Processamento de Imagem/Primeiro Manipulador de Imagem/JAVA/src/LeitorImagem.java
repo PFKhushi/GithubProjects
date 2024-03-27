@@ -24,8 +24,8 @@ public class LeitorImagem{
         }
 
         if (imagem != null){
-           /// display(imagem);
-            pretoEbranco(imagem);
+            display(imagem);
+            binarizacao(imagem);
             display(imagem);
         }
 
@@ -42,39 +42,142 @@ public class LeitorImagem{
         frame.setVisible(true);
 
 
-    }
-    public static void pretoEbranco (BufferedImage imagem){
+    } public static void pretoEbrancoMedia (BufferedImage imagem){
 
         int p, a, r, g, b, md;
 
         for(int l = 0; l < imagem.getHeight(); l++){
             for(int c = 0; c < imagem.getWidth(); c++){
 
-                System.out.println(1);
                 p = imagem.getRGB(c, l);
-                System.out.println(2);
                 a = (p>>24)&0xff;
-                System.out.println(3);
                 r = (p>>16)&0xff;
-                System.out.println(4);
                 g = (p>>8)&0xff;
-                System.out.println(5);
                 b = p&0xff;
-                System.out.println(6);
-
                 md = (r+g+b)/3;
-                System.out.println(7);
-
                 p = (a<<24) | (md<<16) | (md<<8) | md;
-                System.out.println(8);
-
                 imagem.setRGB(c, l, p);
-                System.out.println("\n\nLinha: " + l + " Coluna: " + c);
-                System.out.println("Height " + imagem.getHeight() + " Width " + imagem.getWidth());
             }
         }
 
         display(imagem);
 
     }
+
+    public static void maisVermelho (BufferedImage imagem){
+
+        int p, a, r, g, b;
+
+        for(int l = 0; l < imagem.getHeight(); l++){
+            for(int c = 0; c < imagem.getWidth(); c++){
+
+                p = imagem.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                r = ((r+60)>255)?(255):(r+60);
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+                imagem.setRGB(c, l, p);
+            }
+        }
+
+        display(imagem);
+
+    }public static void maisVerde (BufferedImage imagem){
+
+        int p, a, r, g, b;
+
+        for(int l = 0; l < imagem.getHeight(); l++){
+            for(int c = 0; c < imagem.getWidth(); c++){
+
+                p = imagem.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                g = ((g+60)>255)?(255):(g+60);
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+                imagem.setRGB(c, l, p);
+            }
+        }
+
+        display(imagem);
+
+    }public static void maisAzul (BufferedImage imagem){
+
+        int p, a, r, g, b;
+
+        for(int l = 0; l < imagem.getHeight(); l++){
+            for(int c = 0; c < imagem.getWidth(); c++){
+
+                p = imagem.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                b = ((b+60)>255)?(255):(b+60);
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+                imagem.setRGB(c, l, p);
+            }
+        }
+
+        display(imagem);
+
+    }public static void negativo (BufferedImage imagem){
+
+        int p, a, r, g, b;
+
+        for(int l = 0; l < imagem.getHeight(); l++){
+            for(int c = 0; c < imagem.getWidth(); c++){
+
+                p = imagem.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                r = 255 - r;
+                g = 255 - g;
+                b = 255 - b;
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+                imagem.setRGB(c, l, p);
+            }
+        }
+
+        display(imagem);
+
+   } public static void binarizacao (BufferedImage imagem){
+
+        int p, a, r, g, b, md;
+
+        for(int l = 0; l < imagem.getHeight(); l++){
+            for(int c = 0; c < imagem.getWidth(); c++){
+
+                p = imagem.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                md = (((r+g+b)/3)<120)?0:255;
+                p = (a<<24) | (md<<16) | (md<<8) | md;
+
+                imagem.setRGB(c, l, p);
+            }
+        }
+
+        display(imagem);
+
+    }
+
+
+
 }

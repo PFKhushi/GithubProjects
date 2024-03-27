@@ -5,4 +5,10 @@ Passos:
 	A ser descoberto
 
 Concluido:
-    -Funcao de retirar a cor feita
+    -Funcao de retirar a cor pela media das cores feita
+    -Funcao de aumentar cada banda individualmente feita
+    -Funcao de binarizacao feita
+    -Funcao de negativa cores feita
+
+
+    -Ainda n entendi as outras
