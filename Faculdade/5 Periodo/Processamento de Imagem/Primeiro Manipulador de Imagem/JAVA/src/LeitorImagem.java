@@ -8,6 +8,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+
+
 public class LeitorImagem{
 
     public static void main (String[] args) {
@@ -16,6 +18,7 @@ public class LeitorImagem{
         BufferedImage imagem = null;
         BufferedImage nova_imagem = null;
 
+
         try {
             imagem = ImageIO.read(file);
 
@@ -23,10 +26,22 @@ public class LeitorImagem{
             e.printStackTrace(System.out);
         }
 
+
         if (imagem != null){
-            display(imagem);
-            binarizacao(imagem);
-            display(imagem);
+            nova_imagem = ImageIO.read(imagem);
+
+            pretoEbrancoMedia(nova_imagem);
+            nova_imagem = imagem;
+            maisVermelho(nova_imagem);
+            nova_imagem = imagem;
+            maisVerde(nova_imagem);
+            nova_imagem = imagem;
+            maisAzul(nova_imagem);
+            nova_imagem = imagem;
+            binarizacao(nova_imagem);
+            nova_imagem = imagem;
+            negativo(nova_imagem);
+
         }
 
     }
@@ -71,6 +86,7 @@ public class LeitorImagem{
         for(int l = 0; l < imagem.getHeight(); l++){
             for(int c = 0; c < imagem.getWidth(); c++){
 
+
                 p = imagem.getRGB(c, l);
                 a = (p>>24)&0xff;
                 r = (p>>16)&0xff;
@@ -91,6 +107,7 @@ public class LeitorImagem{
         int p, a, r, g, b;
 
         for(int l = 0; l < imagem.getHeight(); l++){
+
             for(int c = 0; c < imagem.getWidth(); c++){
 
                 p = imagem.getRGB(c, l);
@@ -161,7 +178,7 @@ public class LeitorImagem{
         for(int l = 0; l < imagem.getHeight(); l++){
             for(int c = 0; c < imagem.getWidth(); c++){
 
-                p = imagem.getRGB(c, l);
+                                p = imagem.getRGB(c, l);
                 a = (p>>24)&0xff;
                 r = (p>>16)&0xff;
                 g = (p>>8)&0xff;
@@ -175,6 +192,13 @@ public class LeitorImagem{
         }
 
         display(imagem);
+
+    }
+    public static BufferedImage copyImage(BufferedImage source){
+
+        BufferedImage copia = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics conteudo = new Ge
+
 
     }
 
