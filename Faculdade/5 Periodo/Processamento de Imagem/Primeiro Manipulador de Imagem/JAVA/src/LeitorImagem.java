@@ -18,6 +18,38 @@ public class LeitorImagem{
         BufferedImage imagem = null;
         BufferedImage nova_imagem = null;
 
+        imagem = fazImagem(file);
+
+        while(imagem != null){
+
+            display(imagem);
+
+            pretoEbrancoMedia(imagem);
+ imagem = fazImagem(file);
+
+            maisVermelho(imagem);
+  imagem = fazImagem(file);
+
+            maisVerde(imagem);
+   imagem = fazImagem(file);
+
+            maisAzul(imagem);
+    imagem = fazImagem(file);
+
+            binarizacao(imagem);
+     imagem = fazImagem(file);
+
+            negativo(imagem);
+
+            imagem = null;
+
+        }
+
+    }
+
+    public static BufferedImage fazImagem(File file){
+
+        BufferedImage imagem = null;
 
         try {
             imagem = ImageIO.read(file);
@@ -26,25 +58,9 @@ public class LeitorImagem{
             e.printStackTrace(System.out);
         }
 
-
-        if (imagem != null){
-            nova_imagem = ImageIO.read(imagem);
-
-            pretoEbrancoMedia(nova_imagem);
-            nova_imagem = imagem;
-            maisVermelho(nova_imagem);
-            nova_imagem = imagem;
-            maisVerde(nova_imagem);
-            nova_imagem = imagem;
-            maisAzul(nova_imagem);
-            nova_imagem = imagem;
-            binarizacao(nova_imagem);
-            nova_imagem = imagem;
-            negativo(nova_imagem);
-
-        }
-
+        return imagem;
     }
+
     public static void display (BufferedImage imagem) {
         System.out.println("Displaying image");
         JFrame frame = new JFrame();
@@ -178,7 +194,7 @@ public class LeitorImagem{
         for(int l = 0; l < imagem.getHeight(); l++){
             for(int c = 0; c < imagem.getWidth(); c++){
 
-                                p = imagem.getRGB(c, l);
+                p = imagem.getRGB(c, l);
                 a = (p>>24)&0xff;
                 r = (p>>16)&0xff;
                 g = (p>>8)&0xff;
@@ -194,6 +210,19 @@ public class LeitorImagem{
         display(imagem);
 
     }
+    public class YIQ{
+
+    }
+
+    public static void RGB2YIQnback(File file){
+
+        BufferedImage prima_immagine, seconda_immagine, terza_immagine, quarta_immagine;
+
+
+
+    }
+
+    /*
     public static BufferedImage copyImage(BufferedImage source){
 
         BufferedImage copia = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
@@ -201,7 +230,7 @@ public class LeitorImagem{
 
 
     }
-
+*/
 
 
 }
