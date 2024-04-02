@@ -22,22 +22,23 @@ public class LeitorImagem{
 
         while(imagem != null){
 
-            display(imagem);
+            display(imagem, "Original");
+            RGB2YIQnback(file);
 
             pretoEbrancoMedia(imagem);
- imagem = fazImagem(file);
+            imagem = fazImagem(file);
 
             maisVermelho(imagem);
-  imagem = fazImagem(file);
+            imagem = fazImagem(file);
 
             maisVerde(imagem);
-   imagem = fazImagem(file);
+            imagem = fazImagem(file);
 
             maisAzul(imagem);
-    imagem = fazImagem(file);
+            imagem = fazImagem(file);
 
             binarizacao(imagem);
-     imagem = fazImagem(file);
+            imagem = fazImagem(file);
 
             negativo(imagem);
 
@@ -61,9 +62,9 @@ public class LeitorImagem{
         return imagem;
     }
 
-    public static void display (BufferedImage imagem) {
+    public static void display (BufferedImage imagem, String nome) {
         System.out.println("Displaying image");
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame(nome);
         JLabel label = new JLabel();
         frame.setSize(imagem.getWidth(), imagem.getHeight());
         label.setIcon(new ImageIcon(imagem));
@@ -91,7 +92,7 @@ public class LeitorImagem{
             }
         }
 
-        display(imagem);
+        display(imagem, "Preto e Branco Média");
 
     }
 
@@ -116,7 +117,7 @@ public class LeitorImagem{
             }
         }
 
-        display(imagem);
+        display(imagem, "Mais Vermelho");
 
     }public static void maisVerde (BufferedImage imagem){
 
@@ -139,7 +140,7 @@ public class LeitorImagem{
             }
         }
 
-        display(imagem);
+        display(imagem, "Mais Verde");
 
     }public static void maisAzul (BufferedImage imagem){
 
@@ -161,7 +162,7 @@ public class LeitorImagem{
             }
         }
 
-        display(imagem);
+        display(imagem, "Mais Azul");
 
     }public static void negativo (BufferedImage imagem){
 
@@ -185,7 +186,7 @@ public class LeitorImagem{
             }
         }
 
-        display(imagem);
+        display(imagem, "Negativo RGB");
 
    } public static void binarizacao (BufferedImage imagem){
 
@@ -207,16 +208,160 @@ public class LeitorImagem{
             }
         }
 
-        display(imagem);
-
-    }
-    public class YIQ{
+        display(imagem, "Binarização");
 
     }
 
     public static void RGB2YIQnback(File file){
 
-        BufferedImage prima_immagine, seconda_immagine, terza_immagine, quarta_immagine;
+        BufferedImage brilho_immagine, negativo_immagine, magenta_immagine, ciano_immagine, pb_immagine;
+
+        int p, a, r, g, b, md;
+        float y, i, q;
+
+        brilho_immagine = fazImagem(file);
+        negativo_immagine = fazImagem(file);
+        magenta_immagine = fazImagem(file);
+        ciano_immagine = fazImagem(file);
+        pb_immagine = fazImagem(file);
+
+        for(int l = 0; l < brilho_immagine.getHeight(); l++){
+            for(int c = 0; c < brilho_immagine.getWidth(); c++){
+
+
+                //////////////////////////////////////////////
+                p = brilho_immagine.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                y = (0.299f*r)+(0.587f*g)+(0.114f*b);
+                i = (0.596f*r)-(0.274f*g)-(0.322f*b);
+                q = (0.211f*r)-(0.523f*g)+(0.312f*b);
+
+                y*=1.40f;
+
+                r = (int)(y+(0.956f*i)+(0.621f*q));
+                g = (int)(y-(0.272f*i)-(0.647f*q));
+                b = (int)(y-(1.106f*i)+(1.703f*q));
+
+                r = (r >= 0 && r <= 200)? r : ((r < 0) ? 0 : 200);
+                g = (g >= 0 && g <= 200)? g : ((g < 0) ? 0 : 200);
+                b = (b >= 0 && b <= 200)? b : ((b < 0) ? 0 : 200);
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+                brilho_immagine.setRGB(c, l, p);
+                //////////////////////////////////////////////
+
+                p = negativo_immagine.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                y = 0;
+                i = (0.596f*r)-(0.274f*g)-(0.322f*b);
+                q = (0.211f*r)-(0.523f*g)+(0.312f*b);
+
+                r = (int)(y+(0.956f*i)+(0.621f*q));
+                g = (int)(y-(0.272f*i)-(0.647f*q));
+                b = (int)(y-(1.106f*i)+(1.703f*q));
+
+                r = (r >= 0 && r <= 200)? r : ((r < 0) ? 0 : 200);
+                g = (g >= 0 && g <= 200)? g : ((g < 0) ? 0 : 200);
+                b = (b >= 0 && b <= 200)? b : ((b < 0) ? 0 : 200);
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+
+                negativo_immagine.setRGB(c, l, p);
+                ///////////////////////////////////////////////
+
+
+                p = magenta_immagine.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                y = (0.299f*r)+(0.587f*g)+(0.114f*b);
+                i = 0;
+                q = (0.211f*r)-(0.523f*g)+(0.312f*b);
+
+                r = (int)(y+(0.956f*i)+(0.621f*q));
+                g = (int)(y-(0.272f*i)-(0.647f*q));
+                b = (int)(y-(1.106f*i)+(1.703f*q));
+
+                r = (r >= 0 && r <= 200)? r : ((r < 0) ? 0 : 200);
+                g = (g >= 0 && g <= 200)? g : ((g < 0) ? 0 : 200);
+                b = (b >= 0 && b <= 200)? b : ((b < 0) ? 0 : 200);
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+
+                magenta_immagine.setRGB(c, l, p);
+                /////////////////////////////////////////////////
+
+
+
+                p = ciano_immagine.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                y = (0.299f*r)+(0.587f*g)+(0.114f*b);
+                i = (0.596f*r)-(0.274f*g)-(0.322f*b);
+                q = 0;
+
+
+                r = (int)(y+(0.956f*i)+(0.621f*q));
+                g = (int)(y-(0.272f*i)-(0.647f*q));
+                b = (int)(y-(1.106f*i)+(1.703f*q));
+
+                r = (r >= 0 && r <= 200)? r : ((r < 0) ? 0 : 200);
+                g = (g >= 0 && g <= 200)? g : ((g < 0) ? 0 : 200);
+                b = (b >= 0 && b <= 200)? b : ((b < 0) ? 0 : 200);
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+
+
+                ciano_immagine.setRGB(c, l, p);
+                ////////////////////////////////////////////////
+
+
+
+                p = pb_immagine.getRGB(c, l);
+                a = (p>>24)&0xff;
+                r = (p>>16)&0xff;
+                g = (p>>8)&0xff;
+                b = p&0xff;
+
+                y = (0.299f*r)+(0.587f*g)+(0.114f*b);
+                i = 0;
+                q = 0;
+
+
+                r = (int)(y+(0.956f*i)+(0.621f*q));
+                g = (int)(y-(0.272f*i)-(0.647f*q));
+                b = (int)(y-(1.106f*i)+(1.703f*q));
+
+                r = (r >= 0 && r <= 200)? r : ((r < 0) ? 0 : 200);
+                g = (g >= 0 && g <= 200)? g : ((g < 0) ? 0 : 200);
+                b = (b >= 0 && b <= 200)? b : ((b < 0) ? 0 : 200);
+
+                p = (a<<24) | (r<<16) | (g<<8) | b;
+
+
+                pb_immagine.setRGB(c, l, p);
+
+
+            }
+
+        }
+        display(brilho_immagine, "Brilho");
+        display(negativo_immagine, "Negativo");
+        display(magenta_immagine, "Zero o I");
+        display(ciano_immagine, "Zera o Q");
+        display(pb_immagine, "Preto e Branco");
+
 
 
 
