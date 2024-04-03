@@ -1,6 +1,9 @@
 import java.util.*;
-import java.IO.BufferedWriter;
-import java.IO.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 
 class StateGraph {
@@ -45,6 +48,7 @@ class StateGraph {
 
         String test = cidade.toString();
         System.out.println("Test muito doido \n" + test);
+        escreverArquivo();
 
 
 
@@ -68,7 +72,19 @@ class StateGraph {
     }
     public static void escreverArquivo(){
 
-        File
+
+        try {
+            File nova_file = new File("../Mapa/test.txt");
+            if(nova_file.createNewFile()){
+                System.out.println("O arquivo foi criado: "+nova_file.getName());
+
+            }else{
+                System.out.println("Aiquivo ja exuiste");
+            }
+        } catch(IOException e){
+            System.out.println("Não foi possivel criar o arquivo!");
+            e.printStackTrace();
+        }
 
     }
 
