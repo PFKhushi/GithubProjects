@@ -11,26 +11,28 @@ class StateGraph {
     public static class Cidade {
         private String nome;
         private int ID;
-        Vector<Integer> conexoes; // Recebe os IDs das cidades com as quais tem conexao
+        ArrayList<Cidade> conexoes; // Recebe os IDs das cidades com as quais tem conexao
 
         public void setCidade(String nome, int ID){
             this.nome = nome;
             this.ID = ID;
+            this.conexoes = new ArrayList<Cidade>();
         }
-        public void setConexaop(int ID){
-
-            this.conexoes.add(ID);
+        public void setConexao(Cidade cidade){
+            this.conexoes.add(cidade);
         }
-
         public String getNome(){
             return this.nome;
         }
         public int getID(){
             return this.ID;
         }
-        public Vector<Integer> getConexoes(){
+        public ArrayList<Cidade> getConexoes(){
             return this.conexoes;
         }
+
+    }
+    public static class Estradas{
 
     }
 
